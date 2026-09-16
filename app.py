@@ -1,6 +1,14 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import (
+    Flask,
+    flash,
+    redirect,
+    render_template,
+    request,
+    session,
+    url_for,
+)
 import mysql.connector
-from werkzeug.security import check_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
 
@@ -57,7 +65,42 @@ def logout():
 
 
 # ============================================================
-# 3. ROTA PRINCIPAL (Protegida por Login)
+# 3. ROTA: CADASTRO DE USUÁRIOS
+# ============================================================
+@app.route("/cadastrar", methods=["GET", "POST"])
+def cadastrar_usuario():
+    if request.method == "POST":
+        nome = request.form["nome"]
+        email = request.form["email"]
+        senha = request.form["senha"]
+        perfil = request.form.get("perfil", "Operador")
+        
+        # Criptografa a senha antes de salvar no MySQL
+        senha_hash = generate_password_hash(senha)
+        
+        conn = get_db_connection()
+        cur = conn.cursor()
+        try:
+            sql = """
+                INSERT INTO usuarios (nome, email, senha_hash, perfil) 
+                VALUES (%s, %s, %s, %s)
+            """
+            cur.execute(sql, (nome, email, senha_hash, perfil))
+            conn.commit()
+            flash("Usuário cadastrado com sucesso! Faça login.")
+            return redirect(url_for("login"))
+        except mysql.connector.Error as err:
+            flash(f"Erro ao cadastrar: {err}")
+            return redirect(url_for("cadastrar_usuario"))
+        finally:
+            cur.close()
+            conn.close()
+            
+    return render_template("cadastrar.html")
+
+
+# ============================================================
+# 4. ROTA PRINCIPAL (Protegida por Login)
 # ============================================================
 @app.route("/")
 def pagina_inicial():
@@ -82,7 +125,7 @@ def pagina_inicial():
 
 
 # ============================================================
-# 4. ROTA DE ADIÇÃO (Protegida por Login)
+# 5. ROTA DE ADIÇÃO DE MEDICAMENTO (Protegida por Login)
 # ============================================================
 @app.route("/adicionar", methods=["POST"])
 def adicionar_medicamento():
