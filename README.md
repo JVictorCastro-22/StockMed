@@ -1,4 +1,4 @@
-Aqui está o **README.md** totalmente atualizado, refletindo todas as evoluções que fizemos no projeto **StockMed** (a identidade visual com o logo, a autenticação de usuários, níveis de permissão entre Administrador e Operador/Auxiliar, filtros de busca, novas rotas e a estrutura completa de pastas):
+
 
 ```markdown
 # 💊 StockMed - Sistema de Controle Farmacêutico
