@@ -3,26 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Sistema de Controle Farmacêutico</title>
+    <title>StockMed - Login</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: Arial, sans-serif; background-color: #f4f6f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
-        .login-card { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
-        h2 { color: #2c3e50; text-align: center; margin-bottom: 20px; }
+        body { 
+            font-family: Arial, sans-serif; 
+            background-color: #f9f6f0; /* Fundo creme leve para combinar com o logo */
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            padding: 20px; 
+        }
+        .login-card { 
+            background: white; 
+            padding: 35px 30px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 15px rgba(124, 74, 46, 0.15); 
+            width: 100%; 
+            max-width: 400px; 
+            border-top: 5px solid #7C4A2E; /* Detalhe com a cor do logo */
+        }
+        .logo-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo-container img {
+            max-width: 120px;
+            height: auto;
+        }
+        h2 { color: #7C4A2E; text-align: center; margin-bottom: 20px; font-size: 22px; }
         .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; }
-        input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
-        button { background-color: #2c3e50; color: white; padding: 12px; border: none; border-radius: 4px; cursor: pointer; width: 100%; font-size: 16px; font-weight: bold; margin-top: 10px; }
-        button:hover { background-color: #34495e; }
-        .alert { background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 4px; margin-bottom: 15px; font-size: 14px; text-align: center; border: 1px solid #f5c6cb; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; font-size: 14px; }
+        input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px; }
+        input:focus { border-color: #7C4A2E; outline: none; }
+        button { 
+            background-color: #7C4A2E; /* Cor principal em marrom do logo */
+            color: white; 
+            padding: 12px; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            width: 100%; 
+            font-size: 16px; 
+            font-weight: bold; 
+            margin-top: 10px; 
+            transition: background 0.3s;
+        }
+        button:hover { background-color: #5D3A20; }
+        .alert { background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; margin-bottom: 15px; font-size: 14px; text-align: center; border: 1px solid #f5c6cb; }
+        .register-link { text-align: center; margin-top: 20px; font-size: 14px; color: #666; }
+        .register-link a { color: #7C4A2E; font-weight: bold; text-decoration: none; }
+        .register-link a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
 
     <div class="login-card">
+        <!-- Logótipo da Empresa -->
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="StockMed Logo">
+        </div>
+
         <h2>Acesso ao Sistema</h2>
         
-        <!-- Exibe mensagens de alerta/erro do Flask -->
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for message in messages %}
@@ -41,7 +85,9 @@
                 <input type="password" name="senha" required placeholder="••••••••">
             </div>
             <button type="submit">Entrar</button>
-            <p>Não tem uma conta? <a href="/cadastrar">Cadastre-se aqui</a></p>
+            <div class="register-link">
+                Não tem uma conta? <a href="/cadastrar">Cadastre-se aqui</a>
+            </div>
         </form>
     </div>
 
