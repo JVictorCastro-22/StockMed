@@ -1,61 +1,66 @@
 
 
-```markdown
-# 💊 StockMed - Sistema de Controle Farmacêutico
+<div align="center">
 
-Sistema web robusto e moderno desenvolvido em **Python (Flask)** e **MySQL** para o gerenciamento inteligente de estoque e controle de medicamentos em estabelecimentos farmacêuticos. Projeto desenvolvido como parte do curso de Análise e Desenvolvimento de Sistemas.
+# 💊 StockMed — Sistema de Controle Farmacêutico
+
+<img src="static/logo.png" alt="StockMed Logo" width="140"/>
+
+*Um sistema web robusto e intuitivo de gestão de inventário e medicamentos, inspirado em padrões corporativos (ERP).*
+
+[![Python](https://img.shields.io/badge/Python-3.8%2B-blue?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Flask](https://img.shields.io/badge/Flask-Framework-black?style=for-the-badge&logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
+[![MySQL](https://img.shields.io/badge/MySQL-Database-orange?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+
+</div>
+
+---
+
+## 📋 Sobre o Projeto
+
+O **StockMed** foi desenvolvido como parte do curso de **Análise e Desenvolvimento de Sistemas**. Trata-se de uma aplicação web completa para o controle de estoque em estabelecimentos farmacêuticos, focando em segurança de dados, controle de lotes, validades e níveis hierárquicos de acesso corporativo.
+
+---
+
+## ✨ Funcionalidades Principais
+
+- 🔐 **Autenticação Segura:** Sistema de login e registro com criptografia de senhas (*Werkzeug Security*).
+- 👥 **Controle de Permissões (RBAC):** Níveis de acesso distintos para **Administrador** (gestão total, exclusão e auditoria) e **Operador/Auxiliar**.
+- 📦 **Gestão de Inventário:** Cadastro detalhado contendo código de barras, nome, descrição, lote, quantidade atual, data de validade e laboratório fabricante.
+- 🔍 **Busca e Filtros Avançados:** Consulta dinâmica de estoque com filtragem em tempo real por nome ou código de barras.
+- 🎨 **Identidade Visual Personalizada:** Interface responsiva desenhada com paleta de cores corporativa e logótipo próprio.
 
 ---
 
 ## 🚀 Tecnologias e Ferramentas
 
 - **Linguagem:** Python 3.x
-- **Framework Web:** Flask (com gerenciamento de sessões e rotas protegidas)
-- **Segurança:** Werkzeug Security (hash seguro de senhas)
+- **Framework Web:** Flask (com gerenciamento de sessões seguras)
 - **Banco de Dados:** MySQL / MySQL Workbench
-- **Interface e Estilização:** HTML5, CSS3 (Design corporativo personalizado)
-- **Controle de Versão:** Git e GitHub
-
----
-
-## ✨ Funcionalidades do Sistema
-
-- **Autenticação Segura:** Sistema de login e cadastro de usuários com criptografia de senha.
-- **Controle de Permissões (RBAC):** Níveis de acesso diferenciados entre **Administrador** (com privilégios para excluir e gerenciar) e **Operador/Auxiliar**.
-- **Gestão de Medicamentos:** Cadastro detalhado com código de barras, lote, quantidade, validade e laboratório.
-- **Consulta e Filtros Avançados:** Tela de estoque com barra de pesquisa interativa por nome ou código de barras.
-- **Identidade Visual Personalizada:** Interface com paleta de cores corporativa e logótipo integrado.
-
----
-
-## 📋 Pré-requisitos
-
-Antes de iniciar, certifique-se de ter instalado em sua máquina:
-- [Python](https://www.python.org/) (versão 3.8 ou superior)
-- [Git](https://git-scm.com/)
-- [MySQL Server / MySQL Workbench](https://dev.mysql.com/downloads/)
+- **Estilização:** HTML5, CSS3 (Design System próprio)
+- **Controle de Versão:** Git & GitHub
 
 ---
 
 ## 📂 Estrutura do Projeto
 
 ```text
-sistema_farmacia
+sistema_farmacia/
 │
 ├── static/
-│   └── logo.png                 # Logótipo oficial do StockMed
+│   └── logo.png                  # Logótipo oficial do StockMed
 ├── templates/
-│   ├── cadastrar.html           # Tela de registro de novos usuários
-│   ├── cadastrar_medicamento.html # Tela de cadastro de remédios/lotes
-│   ├── estoque.html             # Tabela de consulta, filtros e exclusão
-│   ├── index.html               # Menu principal / Dashboard
-│   └── login.html               # Tela de autenticação
+│   ├── cadastrar.html            # Registro de novos usuários
+│   ├── cadastrar_medicamento.html# Cadastro de novos produtos e lotes
+│   ├── estoque.html              # Consulta, filtros e ações de exclusão
+│   ├── index.html                # Menu Principal / Dashboard
+│   └── login.html                # Tela de autenticação
 │
-├── .gitignore                   # Arquivos ignorados pelo Git
-├── app.py                       # Lógica principal do Flask, rotas e segurança
-├── criar_admin.py               # Script utilitário para criar admin inicial
-└── README.md                    # Documentação do projeto
-
+├── .gitignore                    # Arquivos ignorados pelo Git
+├── app.py                        # Lógica principal, rotas e controle de sessões
+├── criar_admin.py                # Utilitário para geração de usuário administrador
+└── README.md                     # Documentação oficial do projeto
 ```
 
 ---
