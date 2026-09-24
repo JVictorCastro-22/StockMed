@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StockMed - Auditoria de Movimentações</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f9f6f0; margin: 0; padding: 20px; }
+        .container { max-width: 1000px; margin: 20px auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(124, 74, 46, 0.1); border-top: 5px solid #7C4A2E; }
+        
+        .header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid #f0e6d2; padding-bottom: 15px; }
+        .header-title { display: flex; align-items: center; gap: 15px; }
+        .header-title img { width: 60px; height: auto; }
+        .header-title h2 { color: #7C4A2E; margin: 0; }
+        
+        .btn-back { background-color: #333; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; font-size: 14px; transition: background 0.3s; }
+        .btn-back:hover { background-color: #555; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #7C4A2E; color: white; }
+        tr:hover { background-color: #f5f5f5; }
+
+        /* Cores dinâmicas para os tipos de operação */
+        .badge { padding: 4px 8px; border-radius: 12px; font-weight: bold; font-size: 12px; color: white; }
+        .bg-entrada { background-color: #2ecc71; }
+        .bg-saida { background-color: #e74c3c; }
+        .bg-avaria { background-color: #e67e22; }
+        .bg-transferencia { background-color: #3498db; }
+        .bg-default { background-color: #95a5a6; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header-flex">
+            <div class="header-title">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="StockMed Logo">
+                <div>
+                    <h2>Auditoria de Estoque</h2>
+                    <p style="margin: 5px 0 0; color: #666; font-size: 14px;">Relatório de movimentações do sistema ERP</p>
+                </div>
+            </div>
+            <a href="/" class="btn-back">⬅ Voltar</a>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Data e Hora</th>
+                    <th>Operação</th>
+                    <th>Medicamento (Lote)</th>
+                    <th>Qtd</th>
+                    <th>Usuário/Operador</th>
+                    <th>Justificativa / Motivo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for mov in movimentacoes %}
+                <tr>
+                    <td>{{ mov.data.strftime('%d/%m/%Y') }} às {{ mov.hora }}</td>
+                    <td>
+                        <span class="badge 
+                            {% if mov.tipo == 'ENTRADA' %} bg-entrada 
+                            {% elif mov.tipo == 'SAIDA' %} bg-saida 
+                            {% elif mov.tipo in ['AVARIA', 'VENCIMENTO'] %} bg-avaria 
+                            {% elif mov.tipo in ['EMPRESTIMO', 'TRANSFERENCIA'] %} bg-transferencia 
+                            {% else %} bg-default {% endif %}">
+                            {{ mov.tipo }}
+                        </span>
+                    </td>
+                    <td><strong>{{ mov.medicamento_nome }}</strong><br><small style="color: #777;">Lote: {{ mov.lote }}</small></td>
+                    <td><strong>{{ mov.quantidade }}</strong></td>
+                    <td>{{ mov.usuario_nome }}</td>
+                    <td style="max-width: 200px; color: #555;">{{ mov.motivo or '-' }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="6" style="text-align: center; padding: 20px; color: #666;">Nenhuma movimentação registada até o momento.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

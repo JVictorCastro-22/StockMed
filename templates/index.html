@@ -40,12 +40,24 @@
         <div class="menu-grid">
             <a href="/medicamento/novo" class="menu-card">
                 <h3>📦 Cadastrar Produto</h3>
-                <p>Adicionar novos lotes e medicamentos ao stock geral.</p>
+                <p>Adicionar novos lotes e medicamentos ao estoque geral.</p>
             </a>
             <a href="/estoque" class="menu-card">
-                <h3>📊 Consultar Stock</h3>
+                <h3>📊 Consultar estoque</h3>
                 <p>Visualizar lista completa, aplicar filtros e gerenciar itens.</p>
             </a>
+            <a href="/movimentacao/nova" class="menu-card">
+                <h3>🔄 Lançar Movimentação</h3>
+                <p>Dar baixa por avaria, vencimento, saída ou nova entrada.</p>
+            </a>
+            
+            <!-- Mostra o botão de Auditoria apenas se for Administrador -->
+            {% if usuario_perfil == 'Administrador' %}
+            <a href="/movimentacoes/historico" class="menu-card" style="border-left: 4px solid #e74c3c;">
+                <h3>🛡️ Auditoria (Histórico)</h3>
+                <p>Ver o relatório de todas as movimentações de estoque realizadas.</p>
+            </a>
+            {% endif %}
         </div>
     </div>
 

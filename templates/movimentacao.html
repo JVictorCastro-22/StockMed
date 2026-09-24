@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StockMed - Registar Movimentação</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f9f6f0; margin: 0; padding: 20px; }
+        .container { max-width: 600px; margin: 30px auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(124, 74, 46, 0.1); border-top: 5px solid #7C4A2E; }
+        
+        .header { text-align: center; margin-bottom: 25px; }
+        .header img { max-width: 90px; margin-bottom: 10px; }
+        h2 { color: #7C4A2E; }
+        
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; font-size: 14px; }
+        input, select, textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px; box-sizing: border-box; }
+        input:focus, select:focus, textarea:focus { border-color: #7C4A2E; outline: none; }
+        
+        .alert { background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; margin-bottom: 15px; font-size: 14px; text-align: center; border: 1px solid #f5c6cb; }
+        
+        .btn-submit { background-color: #7C4A2E; color: white; padding: 12px; border: none; border-radius: 5px; cursor: pointer; width: 100%; font-size: 16px; font-weight: bold; margin-top: 10px; transition: background 0.3s; }
+        .btn-submit:hover { background-color: #5D3A20; }
+        
+        .btn-back { display: block; text-align: center; margin-top: 15px; text-decoration: none; color: #666; font-size: 14px; }
+        .btn-back:hover { text-decoration: underline; color: #7C4A2E; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="StockMed Logo">
+            <h2>Registar Movimentação de Stock</h2>
+            <p style="color: #666; font-size: 14px;">Entradas, Saídas, Avarias ou Transferências</p>
+        </div>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form action="/movimentacao/nova" method="POST">
+            <div class="form-group">
+                <label>Medicamento e Lote Atual:</label>
+                <select name="id_medicamento" required>
+                    <option value="" disabled selected>Selecione um produto...</option>
+                    {% for med in medicamentos %}
+                        <option value="{{ med.id }}">
+                            {{ med.nome }} | Lote: {{ med.lote }} | Disponível: {{ med.quantidade_atual }} un.
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Tipo de Operação:</label>
+                <select name="tipo" required>
+                    <option value="" disabled selected>Selecione o tipo...</option>
+                    <option value="ENTRADA">🟢 Entrada </option>
+                    <option value="SAIDA">🔴 Saída / Venda </option>
+                    <option value="AVARIA">🟠 Avaria / Danificado </option>
+                    <option value="VENCIMENTO">🟠 Vencimento </option>
+                    <option value="EMPRESTIMO">🔵 Empréstimo a Terceiros </option>
+                    <option value="TRANSFERENCIA">🔵 Transferência Interna </option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Quantidade:</label>
+                <input type="number" name="quantidade" min="1" required placeholder="Ex: 5">
+            </div>
+
+            <div class="form-group">
+                <label>Motivo / Justificação (Recomendado para Avarias e Empréstimos):</label>
+                <textarea name="motivo" rows="3" required placeholder="Descreva o motivo desta operação... (Obrigatório)"></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">Confirmar Movimentação</button>
+            <a href="/" class="btn-back">⬅ Voltar ao Menu Principal</a>
+        </form>
+    </div>
+
+</body>
+</html>
