@@ -17,6 +17,9 @@
         p.subtitle { text-align: center; color: #666; margin-bottom: 30px; font-size: 14px; }
         
         .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (max-width: 600px) {
+    .menu-grid { grid-template-columns: 1fr; }
+}
         .menu-card { background: #fdfcfa; border: 1px solid #e6dec5; padding: 25px; border-radius: 8px; text-align: center; text-decoration: none; color: #333; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
         .menu-card:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(124, 74, 46, 0.15); background: #fff; border-color: #7C4A2E; }
         .menu-card h3 { color: #7C4A2E; margin-bottom: 10px; }
