@@ -1,3 +1,5 @@
+import os
+
 from flask import (
     Flask,
     flash,
@@ -17,10 +19,11 @@ app.secret_key = "chave_secreta_farmacia_2026"
 
 def get_db_connection():
     conn = mysql.connector.connect(
-        host="localhost",
-        database="farmacia",
-        user="root",
-        password=""  # Mude para a sua senha do MySQL se tiver configurado uma
+        host="mysql-c0802c4-stockmed.f.aivencloud.com",
+        port=20810,
+        database="defaultdb",
+        user="avnadmin",
+        password=os.environ.get("DB_PASSWORD")
     )
     return conn
 
